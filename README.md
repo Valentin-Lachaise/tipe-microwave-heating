@@ -1,6 +1,6 @@
 # Microwave heating: characterization and optimization
 
-TIPE 2024/2025 (PC*), file N°35483.
+TIPE 2024/2025 (PC*), by Valentin Lachaise, candidate N°35483.
 
 Study of how microwaves heat a material and why hot spots appear, combining modelling, simulation and experiments.
 
@@ -59,21 +59,43 @@ Fischer esterification of ethanoic acid with 3-methylbutan-1-ol, heated for 1 mi
 
 Heating and yield are optimal when the reagents are placed at the centre of the waveguide (75 % yield, against 49 % at the edge and 60 % without waveguide).
 
-## Code
+## What's in this repo
 
-| File | Content |
+The analysis scripts of the study, written in Python (numpy, matplotlib, scipy, Pillow), and the slides:
+
+| File | What it is |
 |---|---|
-| [`src/bessel_squared.py`](src/bessel_squared.py) | Plot of the squared Bessel functions J_n(kr)² |
-| [`src/temperature_profile.py`](src/temperature_profile.py) | Thermal image → temperature as a function of radius along a section |
-| [`src/internal_energy.py`](src/internal_energy.py) | Thermal image → internal energy variation of the sample |
-| [`waveguide_cutoff.py`](waveguide_cutoff.py) | Cutoff frequencies of a rectangular waveguide |
+| [`src/bessel_squared.py`](src/bessel_squared.py) | Plots the squared Bessel functions J_n(kr)², to which the measured heating profiles are compared (sphere and thick cylinder, slides 14 and 15). |
+| [`src/temperature_profile.py`](src/temperature_profile.py) | Turns a thermal camera image into grey levels, then into temperatures, and plots the temperature against the radius along the central column of the image. |
+| [`src/internal_energy.py`](src/internal_energy.py) | Computes the internal energy variation of a sample from a thermal image, by summing the energy stored in each pixel seen as a ring of water. |
+| [`waveguide_cutoff.py`](waveguide_cutoff.py) | Cutoff frequencies of a rectangular waveguide: a mode only propagates above its cutoff frequency (illustrative helper). |
+| [`docs/tipe-microwave-heating-slides.pdf`](docs/tipe-microwave-heating-slides.pdf) | The TIPE presentation slides, in French. |
+| [`docs/images/`](docs/images) | The key slides as images, used in this README. |
+| [`requirements.txt`](requirements.txt) | Python dependencies. |
+
+Not in this repo: the code that solves the power-series model of the electric field (section 3), the code behind the comparison with the foci theory (section 1), and the raw thermal images.
+
+Plot titles and labels are in French (the slides are in French too).
+
+## Running the scripts
+
+With Python 3 installed:
 
 ```bash
 pip install -r requirements.txt
 python src/bessel_squared.py
-python src/temperature_profile.py image.jpg --tmin 19.8 --tmax 49.8 --width 10 --height 5
+```
+
+This plots J_0(kr)² for kr up to 15. To plot another order or range, call `trace_Bessel_carre(n, xmax)` from Python.
+
+The two other scripts take a thermal camera image (jpg or png). Give the temperatures at the bottom and top of its colour scale (`--tmin`, `--tmax`) and the real size of the photo (`--width`, `--height`, in cm for `temperature_profile.py` and in m for `internal_energy.py`):
+
+```bash
+python src/temperature_profile.py image.jpg --tmin 19.8 --tmax 49.8 --width 10 --height 5 --title "section cylindre"
 python src/internal_energy.py image.jpg --tmin 20 --tmax 60 --width 0.03 --height 0.1
 ```
+
+The temperature profile is read along the central column of the image, from the bottom upwards.
 
 ## Author
 Valentin Lachaise, engineering student at IMT Atlantique.
