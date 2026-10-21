@@ -4,6 +4,8 @@ TIPE 2024/2025 (PC*), file N°35483.
 
 Study of how microwaves heat a material and why hot spots appear, combining modelling, simulation and experiments.
 
+Slides, in French: [tipe-microwave-heating-slides.pdf](docs/tipe-microwave-heating-slides.pdf)
+
 ## Motivation
 In Courty's well-known experiment, a potato heated in a microwave oven shows hot spots that a thermal camera reveals. The goal is to understand where they come from and how to control them.
 
